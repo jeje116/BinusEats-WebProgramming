@@ -11,7 +11,7 @@
 
             <div class="isiform">
                 <p id="verificationtext">
-                    Please check your email inbox or email junk to reset your password. If the email doesn't show up, you can click the resend verification email button.
+                    Please check your email to reset your password. If the email doesn't show up, you can click the resend verification email button.
                 </p>
                 <div class="part_button">
                     <button type="submit" id="button" value="verification">

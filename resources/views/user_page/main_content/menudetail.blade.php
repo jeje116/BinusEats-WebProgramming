@@ -10,7 +10,7 @@
                 <p class="text-name-restoran"><i><u>{{ $tenant->name }}</u></i></p>
             </div>
             <div class="logo-binuseat">
-                <img src="{{asset('/storage/tenant_images/'.$tenant->image_link)}}">
+                <img src="{{asset('/storage/tenant_images/')}}">
             </div>
         </div>
         <div class="right">
