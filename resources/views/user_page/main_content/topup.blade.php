@@ -10,7 +10,7 @@
                 <a class="button" href="/{{ $user->id }}/topup/GoPay"style="background-color: #{{ $active == 3 ? 'F9C140': 'Fad685'}};border-bottom:{{$active == 3?'none':"solid 0.2vw rgba(0, 0, 0, 0.2)"}}"><img src="{{$tr_emone[2]->img}}" alt="">GoPay</a>
             </div>
             
-            <form action="/{{ $user->id }}/topup/process" method="POST" class="topup2" onsubmit="return sendDataMidtrans(event)">
+            <form action="/{{ $user->id }}/topup/process" method="POST" class="topup2">
                 @csrf
                 <input type="text" name="user_id" value="{{ $user->id }}" style="display: none;">
                 <input type="text" name="emoney_id" value="{{ $emoney[0]->id }}" style="display: none;">
@@ -55,38 +55,32 @@
                 // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
                     window.snap.pay('{{ $snap_token }}', {
                         onSuccess: function(result){
-                            alert("payment success!"); console.log(result);
-                            document.getElementById('finish_top_up').submit();
+                            showAlertPopUp("Payment Success!");
                         },
                         onPending: function(result){
-
-                            alert("wating your payment!"); console.log(result);
-                            document.getElementById('finish_top_up').submit();
+                            showAlertPopUp("Wating Your Payment!");
                         },
                         onError: function(result){
-                            alert("payment failed!"); console.log(result);
-                            document.getElementById('finish_top_up').submit();
+                            showAlertPopUp("Payment Failed!");
                         },
                         onClose: function(){
-                            alert('you closed the popup without finishing the payment');
-                            document.getElementById('finish_top_up').submit();
+                            showAlertPopUp('You Closed The Popup Without Finishing The Payment');
                         }
                     });
                 });
               </script>
 
         </div>
-        <div id="topupConfirmation" class="modal">
+        <div id="alert_pop_up" class="modal">
             <div class="modal-content">
-                <h3 style="font-size: 3vw">Top Up Confirmation</h3>
-                <p style="font-size: 1.5vw">Are you sure you want to top up your {{$emoney[0]->name}}?</p>
+                <h3 id="alert_text">Top Up Confirmation</h3>
 
-                <div class="modal-buttons">
-                    <button style="font-size: 1.5vw" id="confirmTopUpButton" class="confirm-button">Yes</button>
-                    <button style="font-size: 1.5vw" id="cancelTopUpButton" class="cancel-button">No</button>
-                </div>
+                    <button id="confirmTopUpButton" class="confirm-button" onclick="submitForm()">OKE</button>
+                
             </div>
         </div>
+
+        <div class="alert_block_div" id="alert_block_div"></div>
 
         <div class="history-help">
             <div class="history-topup">
@@ -163,17 +157,16 @@
         emoney_id = emoney_id_data;
     }
 
-    function sendDataMidtrans() {
-        // event.preventDefault();
-
-        var amount;
-
-        if (snap_token == undefined) {
-
-            amount = document.getElementById('inputAmount').value;
-
-        }
-
-        location.reload();
+    function showAlertPopUp(text) {
+        document.getElementById('alert_text').innerHTML = text;
+        document.getElementById('alert_pop_up').style.display = 'flex';
+        document.getElementById('alert_block_div').style.display = 'block';
     }
+
+    function submitForm() {
+        document.getElementById('alert_pop_up').style.display = 'none';
+        document.getElementById('alert_block_div').style.display = 'none';
+        document.getElementById('finish_top_up').submit();
+    }
+    
 </script>

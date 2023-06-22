@@ -71,7 +71,6 @@ class TopUpController extends Controller
         $emoney = TopUp::find($request->emoney_id);
 
         $order_id = Str::orderedUuid()->toString();
-
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = config('midtrans.server_key');
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -129,7 +128,6 @@ class TopUpController extends Controller
     function finishMidtrans(Request $request, $user_id) {
 
         $server_key = config('midtrans.server_key');
-
         $midtrans_transactions = MidtransTransaction::where('order_id', $request->order_id)->first();
 
         $response = Http::withBasicAuth($server_key, '')
@@ -138,16 +136,22 @@ class TopUpController extends Controller
         $temp = $response->json();
 
         $emoney = TopUp::find( $midtrans_transactions->emoney_id);
+
+        if ($temp['status_code'] == 201) {
         
-        if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
-            $this->updateUser($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
-            $this->addIntoTopUpTransaction($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
-            $midtrans_transactions->delete();
-        }
-        elseif ($temp['transaction_status'] == 'pending') {
-            $midtrans_transactions->update([
-                'pending_status' => 'pending'
-            ]);
+            if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
+                $this->updateUser($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
+                $this->addIntoTopUpTransaction($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
+                $midtrans_transactions->delete();
+            }
+            elseif ($temp['transaction_status'] == 'pending') {
+                $midtrans_transactions->update([
+                    'pending_status' => 'pending'
+                ]);
+            }
+            else {
+                $midtrans_transactions->delete();
+            }
         }
         else {
             $midtrans_transactions->delete();
