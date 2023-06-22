@@ -56,7 +56,7 @@
 
                 </div>
             </div>
-            <a href="/{{$id}}/topup/BiPay/History" class="topup_button">
+            <a href="/{{$id}}/topup/BiPay" class="topup_button">
                 <i class="fa-solid fa-plus"aria-hidden="true" style="color: #ffffff;"></i>
                 <p>TOP UP</p>
             </a>

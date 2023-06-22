@@ -42,10 +42,9 @@ Route::get('/inputnp', [ForgotpassController::class, 'showChangePassword'])->nam
 Route::post('/inputnp', [ForgotpassController::class, 'changePassword']);
 
 // Route::get('/topup', [TopUpController::class, 'show']);
-Route::get('/{id}/topup/BiPay/{type}', [TopUpController::class, 'activeBiPay'])->middleware('auth');
-Route::get('/{id}/topup/OVO/{type}', [TopUpController::class, 'activeOvo'])->middleware('auth');
-Route::get('/{id}/topup/GoPay/{type}', [TopUpController::class, 'activeGoPay'])->middleware('auth');
-Route::post('/topup/process', [TopUpController::class, 'processTopUp'])->name('topup.process');
+Route::get('/{id}/topup/{emoney}', [TopUpController::class, 'activeEmoney'])->middleware('auth');
+Route::post('/{id}/topup/process', [TopUpController::class, 'midtransProcess'])->name('topup.process');
+Route::post('/{id}/topup/finish', [TopUpController::class, 'finishMidtrans']);
 
 Route::get('/{id}/profile', [ProfileController::class, 'show'])->name('profile')->middleware('auth');
 Route::post('{user_id}/profile/edit', [ProfileController::class, 'editProfile'])->name('edit.profile');
