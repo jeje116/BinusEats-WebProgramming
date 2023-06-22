@@ -1,7 +1,6 @@
 @extends('/user_page.main_template')
 
 @section('content')
-@dump($snap_token, $order_id)
     <!-- Add a hidden modal box -->
     <div class="body-section">
         <div class="topup-container">

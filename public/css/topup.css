@@ -1,7 +1,7 @@
 .body-section{
     display: flex;
     justify-content: space-around;
-    height: 87vh;
+    align-items: center;
 }
 
 .topup-container{
@@ -131,13 +131,8 @@ label input{
 
 .history-topup{
     background-color: #F9C140;
-    border-radius: 0 0.5vw 0.5vw 0.5vw;
-    border-bottom: solid 0.2vw rgba(0, 0, 0, 0.2);
-    border-right: solid 0.2vw rgba(0, 0, 0, 0.2);
-    border-left: solid 0.2vw rgba(0, 0, 0, 0.2);
-    /* width: 60%; */
-    height: 80%;
-
+    border-radius: 0.5vw;
+    border: solid 0.2vw rgba(0, 0, 0, 0.2);
 }
 
 .emoney-hist{
@@ -157,6 +152,7 @@ label input{
     padding: 0.5vw 1vw;
     margin-left: 1vw;
     margin-right: 1vw;
+    height: 80vh;
 }
 
 .topup-hist{
@@ -222,7 +218,7 @@ button{
     color: white;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1.5vw;
+    margin: 1.5vw 0;
     text-decoration: none;
 }
 

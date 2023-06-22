@@ -18,7 +18,7 @@ class TopUpController extends Controller
 {
     public function activeEmoney($id, $emoney_name_data, $order_id = null){
 
-        $this->checkPendingStatusMidtrans();
+        $this->checkPendingStatusMidtrans($id);
 
         $user = User::find($id);
         $emoney = TopUp::where("name", $emoney_name_data)->get();
@@ -129,7 +129,7 @@ class TopUpController extends Controller
 
         $emoney = TopUp::find( $midtrans_transactions->emoney_id);
         
-        if ($temp['transaction_status'] == 'capture' or $temp['transaction_status'] == 'settlement') {
+        if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
             $this->updateUser($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
             $midtrans_transactions->delete();
         }
@@ -145,7 +145,7 @@ class TopUpController extends Controller
         return redirect('/'.$user_id.'/topup/'.$emoney->name);
     }
     
-    function checkPendingStatusMidtrans() {
+    function checkPendingStatusMidtrans($user_id) {
 
         $server_key = config('midtrans.server_key');
 
@@ -156,9 +156,9 @@ class TopUpController extends Controller
                 ->get('https://api.sandbox.midtrans.com/v2/'. $mt->order_id .'/status');
     
                 $temp = $response->json();
-                if ($temp['transaction_status'] == 'capture' or $temp['transaction_status'] == 'settlement') {
-                    $this->updateUser($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
-                    $midtrans_transactions->delete();
+                if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
+                    $this->updateUser($user_id, $mt->emoney_id, $temp['gross_amount']);
+                    $mt->delete();
                 }
                 elseif ($temp['transaction_status'] == 'pending') {
 
