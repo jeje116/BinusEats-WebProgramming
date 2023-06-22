@@ -25,30 +25,31 @@
                 @for ($i = 0; $i < $count/6; $i++)
                     <div id="menuContainer{{$i+1}}" class="container-menu" style="display: none">
                     @for ($j = 6*$i; $j < 6*$i + 6; $j++)
-                        @if ($j == $menus->count())
-                           @break
+                        @if ($j < $menus->count())
+                           <div class="nama-menu" style="opacity: {{$menus[$j]->stock <= 0 ? '0.6' : '1'}};">
+                               <div class="isi-menu">
+                                   <div class="menu1">
+                                       <p class="text-nama-menu">{{$menus[$j]->name}}</p>
+                                   </div>
+                                   <div class="tengah">
+                                       <div class="harga">
+                                           <p class="text-harga">Rp{{number_format($menus[$j]->price, 0 , '.' , '.' )}}</p>
+                                       </div>
+                                       <a class="order" href="/{{$id}}/menu_detail/{{$tenant_name}}/{{$menus[$j]->id}}">
+                                           <p class="text-order">ORDER</p>
+                                       </a>
+                                   </div>
+                                   <div class="stock"> 
+                                       <p style="color:#F26122" class="text-stock"><b>{{$menus[$j]->stock}} in stock</b></p>
+                                   </div>
+                               </div>
+                               <div class="nama-menu_block" style="display: {{$menus[$j]->stock <= 0 ? 'block' : 'none'}};">
+   
+                               </div>
+                           </div>
+                        @else
+                            <div class="nama-menu" style="opacity: 0;"></div>
                         @endif
-                        <div class="nama-menu" style="opacity: {{$menus[$j]->stock <= 0 ? '0.6' : '1'}};">
-                            <div class="isi-menu">
-                                <div class="menu1">
-                                    <p class="text-nama-menu">{{$menus[$j]->name}}</p>
-                                </div>
-                                <div class="tengah">
-                                    <div class="harga">
-                                        <p class="text-harga">Rp{{number_format($menus[$j]->price, 0 , '.' , '.' )}}</p>
-                                    </div>
-                                    <a class="order" href="/{{$id}}/menu_detail/{{$tenant_name}}/{{$menus[$j]->id}}">
-                                        <p class="text-order">ORDER</p>
-                                    </a>
-                                </div>
-                                <div class="stock"> 
-                                    <p style="color:#F26122" class="text-stock"><b>{{$menus[$j]->stock}} in stock</b></p>
-                                </div>
-                            </div>
-                            <div class="nama-menu_block" style="display: {{$menus[$j]->stock <= 0 ? 'block' : 'none'}};">
-
-                            </div>
-                        </div>
                         
                     @endfor
                     </div>

@@ -60,25 +60,6 @@
                         },
                         onPending: function(result){
 
-                            // var url = '/' + {{$id}} + '/topup/midtrans/pending?order=' + {{ $order_id }};
-
-                            // console.log(url)
-                            // return;
-                            // fetch(url)
-                            // .then(response => {
-                            // if (response.ok) {
-                            //     return response.json();
-                            // } else {
-                            //     throw new Error('Error: ' + response.status);
-                            // }
-                            // })
-                            // .then(data => {
-                            //     console.log('Response:', data);
-                            //     })
-                            //     .catch(error => {
-                            //     console.error('Error:', error);
-                            // });
-
                             alert("wating your payment!"); console.log(result);
                             document.getElementById('finish_top_up').submit();
                         },
