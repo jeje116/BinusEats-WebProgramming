@@ -115,6 +115,16 @@ class TopUpController extends Controller
             }
         }
     }
+
+    function addIntoTopUpTransaction($user_id, $emoney_id, $amount) {
+        TopUpTransaction::insert([
+            'user_id' => $user_id,
+            'emoney_id' => $emoney_id,
+            'amount' => $amount,
+            'method' => "Top Up",
+            'time' => now()->timezone('Asia/Jakarta')->format('Y-m-d H:i:s'),
+        ]);
+    }
     
     function finishMidtrans(Request $request, $user_id) {
 
@@ -131,6 +141,7 @@ class TopUpController extends Controller
         
         if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
             $this->updateUser($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
+            $this->addIntoTopUpTransaction($user_id, $midtrans_transactions->emoney_id, $temp['gross_amount']);
             $midtrans_transactions->delete();
         }
         elseif ($temp['transaction_status'] == 'pending') {
@@ -158,6 +169,7 @@ class TopUpController extends Controller
                 $temp = $response->json();
                 if ($temp['transaction_status'] == 'capture' || $temp['transaction_status'] == 'settlement') {
                     $this->updateUser($user_id, $mt->emoney_id, $temp['gross_amount']);
+                    $this->addIntoTopUpTransaction($user_id, $mt->emoney_id, $temp['gross_amount']);
                     $mt->delete();
                 }
                 elseif ($temp['transaction_status'] == 'pending') {
