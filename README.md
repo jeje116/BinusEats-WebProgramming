@@ -49,26 +49,30 @@ Installation
          php artisan serve
          ```
 
-How it works (Food Ordering)
+Notes
 --------------------------------------
-Customer (memesan makanan)
-1. Sign up menggunakan email yang unique dan data yang sesuai dengan ketentuan
-2. Login sesuai dengan data yang sudah terdaftar di database
-3. Pilih atau search tenant
-4. Pilih menu makanan (add to cart)
-5. Top Up saldo e-money jika saldo tidak mencukupi
-6. Checkout makanan yang ingin dipesan (pada cart)
-7. Jika ingin melihat pesanan yang sedang berlangsung, dapat dilihat pada bagian order processing.
-8. Jika pesanan telah selesai dibuat, pembeli akan mendapatkan notifikasi untuk mengambil pesanan
-9. Jika pesanan telah diambil oleh pembeli, pembeli dapat melakukan konfirmasi pengambilan makanan pada bagian order finished.
-10. Jika pesanan telah selesai, status pemesanan dapat dilihat pada bagian order finished
-
-
-Tenant (mengonfirmasi pesanan selesai)
-1. Masuk ke page tenant -> http://127.0.0.1:8000/{{tenant_id}}/tenant/transactions (tenant_id bisa dilihat di tabel tenant pada database)
-2. Konfirmasi pesanan masuk yang sudah selesai
-3. Melihat history pesanan dari customer 
-
+ Setelah proses pembayaran menu pada cart telah selesai dilakukan, silahkan mengakses page tenant untuk mengonfirmasi bahwa menu telah selesai dibuat. Page tenant dapat diakses dengan route link: /{id}/tenant/homepage, dengan nilai id adalah tenant_id.
+ 
+ List tenant_id:
+ | id  | Tenant |
+ | --- | ------ |
+ |  1  | Bakmi Effata  |
+ |  2  | Cerita Cinta  |
+ |  3  | Xiao Kee  |
+ |  4  | Sticky Finger  |
+ |  5  | Rasa Sayange  |
+ |  6  | Oriental Chicken Rice  |
+ |  7  | Rasela Catering  |
+ |  8  | Bakso Akiaw 88  |
+ |  9  | Hakuya Beef Bowl  |
+ |  10  | Marlene Kitchen  |
+ |  11  | SnS Kitchen  |
+ |  12  | Tea Well  |
+ |  13  | Good Waffle  |
+ |  14  | My Crepes  |
+ |  15  | Omon's Corner  |
+ 
+ Penjelasan lebih detail mengenai cara kerja pemesanan makanan dapat mengakses [link ini](https://docs.google.com/document/d/1VBVZc2KquKLRm1QbJ9R-Ci0x6-zqaFZzE6B84yC31B8/edit)
 
 Contributors
 --------------------------------------
